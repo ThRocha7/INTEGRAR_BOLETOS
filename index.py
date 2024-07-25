@@ -106,7 +106,13 @@ write_enter_xpath(field_venc, '12/02/2024')
 
 field_cod_barras = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:it39::content"]'
 write_enter_xpath(field_cod_barras, '')
+
+# colocar verificador
 time.sleep(2)
 field_valor = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:it15::content"]'
-valor_verificar = driver.find_element(By.XPATH, field_valor).text
+valor_verificar = driver.find_element(By.XPATH, field_valor).get_property('value')      
 print(valor_verificar)
+
+# se verdadeiro
+field_cnpj = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:vendorRegistration1Id::content"]'
+write_enter_xpath(field_cnpj, '123')
