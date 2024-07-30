@@ -42,6 +42,8 @@ def formatar_agencia(agencia:str)->str:
 
 
 def validador_valor(valor_oracle:str,valor_pla:str)->bool:
+    valor_oracle = valor_oracle.split('.')
+    valor_oracle = ''.join(valor_oracle)
     if valor_pla == valor_oracle:
         return True
     else: 

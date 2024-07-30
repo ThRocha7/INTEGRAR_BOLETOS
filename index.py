@@ -98,10 +98,11 @@ click_xpath(contas_pagar_btn)
 pagamentos_btn = '//*[@id="itemNode_payables_payables_payments"]'
 click_xpath(pagamentos_btn)
 
-time.sleep(2)
+time.sleep(3)
 folha_btn = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:_FOTsdi__PaymentLanding_itemNode__FndTasksList::icon"]'
 click_xpath(folha_btn)
 
+time.sleep(2)
 gerenciar_link = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:_FOTRaT:0:RAtl23"]'
 click_xpath(gerenciar_link)
 
@@ -167,8 +168,8 @@ if valor_validado:
             cancelar_bnt = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:SPc"]'
             click_xpath(cancelar_bnt)
 
-            cancelar_sim_btn = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:cancelcommandButton4"]'    
-            click_xpath(cancelar_sim_btn)
+            # cancelar_sim_btn = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:cancelcommandButton4"]'    
+            # click_xpath(cancelar_sim_btn)
 
         else:
             print('vamos trabalhar nisso')

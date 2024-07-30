@@ -1,5 +1,5 @@
-import pandas as pd
+valor = 1000
 
-df = pd.read_excel('Pasta1.xlsx')
-
-print(df.loc[0,'Valor'])
+if valor >= 1000:
+    
+    print(valor)
