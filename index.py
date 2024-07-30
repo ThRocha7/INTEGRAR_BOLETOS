@@ -52,7 +52,7 @@ def write_enter_xpath(element, text):
         EC.presence_of_element_located((By.XPATH, element))
         )
         xpath.send_keys(text)
-        time.sleep(.5)
+        time.sleep(1)
         xpath.send_keys(Keys.ENTER)
     except:
         driver.quit()
@@ -98,6 +98,7 @@ click_xpath(contas_pagar_btn)
 pagamentos_btn = '//*[@id="itemNode_payables_payables_payments"]'
 click_xpath(pagamentos_btn)
 
+time.sleep(2)
 folha_btn = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:_FOTsdi__PaymentLanding_itemNode__FndTasksList::icon"]'
 click_xpath(folha_btn)
 
@@ -136,21 +137,44 @@ if valor_validado:
     cnpj = resources.formatar_cnpj(dados['cnpj'])
     write_enter_xpath(field_cnpj, cnpj)
 
-    field_agencia = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:bankBranchNameId::content"]'
-    agencia = driver.find_element(By.XPATH, field_agencia)
-    agencia.send_keys('0001')
-    time.sleep(3)
-    agencia.send_keys(Keys.TAB)
+    
+    xpath_agencia = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:bankBranchNameId::content"]'
+    field_agencia = driver.find_element(By.XPATH, xpath_agencia)
+    agencia = resources.formatar_agencia(dados['agencia'])
+    field_agencia.send_keys(agencia)
+    time.sleep(2)
+    field_agencia.send_keys(Keys.TAB)
 
     time.sleep(2)
-    agencia_correto = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:it11"]'
-    print(driver.find_element(By.XPATH, agencia_correto).text)
+    xpath_agencia_check = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:it11"]'
+    agencia_check = driver.find_element(By.XPATH, xpath_agencia_check).text
 
-    corresponder_btn = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:AT3:_ATp:ctb1"]/a'
-    click_xpath(corresponder_btn)
+    if agencia in agencia_check:
+        print('cheked')
+        corresponder_btn = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:AT3:_ATp:ctb1"]/a'
+        click_xpath(corresponder_btn)
 
-    corresponder_sim_btn = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:cb2"]'
-    click_xpath(corresponder_sim_btn)
+        corresponder_sim_btn = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:cb2"]'
+        click_xpath(corresponder_sim_btn)
+
+        time.sleep(2)
+        xpath_nf_correspondida = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:AT3:_ATp:ATt3::db"]'
+        nf_correspondida = driver.find_element(By.XPATH, xpath_nf_correspondida).text
+        print(nf_correspondida)
+
+        if nf_correspondida == 'Nenhum dado a ser exibido.':
+            print('deu merda')
+            cancelar_bnt = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:SPc"]'
+            click_xpath(cancelar_bnt)
+
+            cancelar_sim_btn = '//*[@id="pt1:_FOr1:1:_FOSritemNode_payables_payables_payments:0:MAnt2:2:pt1:AP1:cancelcommandButton4"]'    
+            click_xpath(cancelar_sim_btn)
+
+        else:
+            print('vamos trabalhar nisso')
+    else:
+        print('Agencia invalida')
+        driver.quit()
 
 else:
     print('deu merda')
