@@ -22,7 +22,7 @@ def formatar_cnpj(cnpj:str)->str:
     elif len(cnpj) == 14:
         print('certo')
         return cnpj
-
+    
 
 def formatar_agencia(agencia:str)->str:
     if len(agencia) <= 4:
@@ -41,11 +41,23 @@ def formatar_agencia(agencia:str)->str:
         print('agencia invalida')
 
 
+def formatar_valor_oracle(valor:str)->str:
+    valor= valor.split('.')
+    valor = ''.join(valor)
+    vir = valor.index(',')
+    if valor[vir:] == ',00':
+        separar = valor.split(',')
+        valor = separar[0]
+        return valor
+    else:
+        return valor
+
+
 def validador_valor(valor_oracle:str,valor_pla:str)->bool:
-    valor_oracle = valor_oracle.split('.')
-    valor_oracle = ''.join(valor_oracle)
-    if valor_pla == valor_oracle:
+    valor = formatar_valor_oracle(valor_oracle)
+    if valor_pla == valor:
         return True
     else: 
         print('valores divergentes')
         return False
+    
